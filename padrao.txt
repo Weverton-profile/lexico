@@ -1,0 +1,14 @@
+program
+    @@ teste
+    /*
+    testando
+    */
+    //
+    testando mais
+    //
+    while(i>=1000) {
+        if(i<500) {
+            i*=2
+        }
+    }
+end
