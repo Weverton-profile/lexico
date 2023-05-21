@@ -3,18 +3,18 @@ import string
 palavras_reservadas = ['program', 'if', 'then', 'else', 'while', 'do', 'until', 'repeat', 'int', 'double', 'char', 'case', 'switch', 'end', 'procedure', 'function', 'for', 'begin']
 
 def geral():
-    tokens = []
     buffer = ''
     comentario = False
     estado = 0
     mensagem = ''
-    
-    with open('padrao.txt', 'r') as arquivo:
+    linha_erro = 0
+    with open('teste.txt', 'r') as arquivo:
         linhas = arquivo.readlines()
     
     for linha in linhas:
         if estado != -1:
             i = 0
+            linha_erro += 1
             while i < len(linha):
                 token = linha[i]
                 if comentario == False:
@@ -47,7 +47,7 @@ def geral():
                         elif token == ' ' or token == '\n':
                             pass
                         else:
-                            mensagem = f'Erro, caractere não reconhecido: "{token}".'
+                            mensagem = f'Erro linha {linha_erro}, caractere não reconhecido "{token}".'
                             estado = -1
                     elif estado == 1:
                         if (token in [str(x) for x in range(0, 9)] or 
@@ -70,14 +70,14 @@ def geral():
                             buffer += token
                             estado = 2
                         else:
-                            mensagem = f'Erro, você tem "{buffer}", "{buffer[-1]}" não pode finalizar um identificador.'
+                            mensagem = f'Erro linha {linha_erro}, você tem "{buffer}". "{buffer[-1]}" não pode finalizar um identificador.'
                             estado = -1
                     elif estado == 4:
                         if token in string.ascii_lowercase:
                             buffer += token
                             estado = 2
                         else:
-                            mensagem = f'Erro, você tem "{buffer}", "{buffer[-1]}" não pode finalizar um identificador.'
+                            mensagem = f'Erro linha {linha_erro}, você tem "{buffer}". "{buffer[-1]}" não pode finalizar um identificador.'
                             estado = -1
                     elif estado == 2:
                         if (token in [str(x) for x in range(0, 9)] or 
@@ -155,7 +155,7 @@ def geral():
                             buffer += token
                             estado = 14
                         else:
-                            mensagem = f'Erro, você tem "{buffer}", "{buffer[-1]}" não pode finalizar um dígito.'
+                            mensagem = f'Erro linha {linha_erro}, você tem "{buffer}". "{buffer[-1]}" não pode finalizar um dígito.'
                             estado = -1
                     elif estado == 14:
                         if token in [str(x) for x in range(0, 9)]:
@@ -215,5 +215,3 @@ def geral():
         else:
             print(mensagem)
             break
-
-geral() 
