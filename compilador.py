@@ -10,7 +10,7 @@ def geral(arquivo):
     linha_erro = 0
     with open(arquivo, 'r') as arquivo:
         linhas = arquivo.readlines()
-    
+
     for linha in linhas:
         if estado != -1:
             i = 0
@@ -21,7 +21,7 @@ def geral(arquivo):
                 caractere = linha[i]
                 if comentario == False:
                     if estado == 0:
-                        if (caractere in string.ascii_lowercase or 
+                        if (caractere in string.ascii_lowercase or
                             caractere in string.ascii_uppercase):
                             token += caractere
                             estado = 1
@@ -52,7 +52,7 @@ def geral(arquivo):
                             mensagem = f'Erro linha {linha_erro}, caractere não reconhecido "{caractere}".'
                             estado = -1
                     elif estado == 1:
-                        if (caractere in [str(x) for x in range(0, 9)] or 
+                        if (caractere in [str(x) for x in range(0, 9)] or
                             caractere in string.ascii_lowercase):
                             token += caractere
                             estado = 2
@@ -82,7 +82,7 @@ def geral(arquivo):
                             mensagem = f'Erro linha {linha_erro}, você tem "{token}". "{token[-1]}" não pode finalizar um identificador.'
                             estado = -1
                     elif estado == 2:
-                        if (caractere in [str(x) for x in range(0, 9)] or 
+                        if (caractere in [str(x) for x in range(0, 9)] or
                             caractere in string.ascii_lowercase):
                             token += caractere
                             estado = 2
@@ -119,18 +119,16 @@ def geral(arquivo):
                         if caractere == "/":
                             token += caractere
                             comentario = True
-                            token = ''
                             estado = 8
                         elif caractere == "*":
                             token += caractere
                             comentario = True
-                            token = ''
                             estado = 22
                         else:
                             print(f'<SIMBOLO_ESPECIAL, {token}>')
-                            token = ''
                             estado = 0
                             i -= 1
+                        token = ''
                     elif estado == 11:
                         if caractere in [str(x) for x in range(0, 9)]:
                             token += caractere
@@ -174,29 +172,23 @@ def geral(arquivo):
                         if caractere == "=":
                             token += caractere
                             print(f'<SIMBOLO_ESPECIAL, {token}>')
-                            token = ''
-                            estado = 0
                         elif caractere == ">":
                             token += caractere
                             print(f'<SIMBOLO_ESPECIAL, {token}>')
-                            token = ''
-                            estado = 0
                         else:
                             print(f'<SIMBOLO_ESPECIAL, {token}>')
-                            token = ''
-                            estado = 0
                             i -= 1
+                        token = ''
+                        estado = 0
                     elif estado == 17:
                         if caractere == "=":
                             token += caractere
                             print(f'<SIMBOLO_ESPECIAL, {token}>')
-                            token = ''
-                            estado = 0
                         else:
                             print(f'<SIMBOLO_ESPECIAL, {token}>')
-                            token = ''
-                            estado = 0
                             i -= 1
+                        token = ''
+                        estado = 0
                 else:
                     if estado == 8:
                         if caractere == "/":
@@ -212,10 +204,13 @@ def geral(arquivo):
                         if caractere == "/":
                             comentario = False
                             estado = 0
+
                 i += 1
         else:
             break
     if mensagem != '':
       print(mensagem)
+    if comentario == True:
+      print('um comentario de varias linha foi aberto e não foi fechado.')
 
 geral("teste.txt")
