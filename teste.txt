@@ -1,18 +1,14 @@
-from math import sqrt
-
 def Fibonacci(busca):
     array$procurado
     /*
     Comentario de varias linhas
     apenas para teste
     */
-    n_num = 0
-    atual = F(n)
+    n_num = -0,25
     while int(atual) <= busca:
         @@ comentario de uma linha teste
-        if 0 <= atual:
-            array$procurado.append(int(atual))
-        n_num += 1
+        if 35 <= atual:
+        n_num += 1 + 0,355 * -55
         atual = F(n_num)
     //
     Comentario de varias linhas
